@@ -1,5 +1,6 @@
 package com.example.ouitest1;
 
+import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getURL(View view) {
-        Toast toast = Toast.makeText(this, "Test", Toast.LENGTH_SHORT);
+        EditText editText = (EditText) findViewById(R.id.url);
+        String url = editText.getText().toString();
+
+        Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
         toast.show();
     }
 
