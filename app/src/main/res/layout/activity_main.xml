@@ -22,7 +22,7 @@
             android:textAlignment="center"
             android:importantForAutofill="no"
             android:autoText="false"
-            android:id="@+id/url"
+            android:id="@+id/url_text"
             android:text="@string/https_example_com"/>
     <TextView
             android:text="@string/ouinet_tester"
