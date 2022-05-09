@@ -19,15 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public void getURL(View view) {
-        EditText editText = (EditText) findViewById(R.id.url);
-        TextView logViewer = (TextView) findViewById(R.id.log_viewer);
-        String url = editText.getText().toString();
-
-        Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
-        toast.show();
 
         Config config = new Config.ConfigBuilder(this)
                 .setCacheType("bep5-http")
@@ -37,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         ouinet = new Ouinet(this, config);
         ouinet.start();
+    }
+
+    public void getURL(View view) {
+        EditText editText = (EditText) findViewById(R.id.url);
+        TextView logViewer = (TextView) findViewById(R.id.log_viewer);
+        String url = editText.getText().toString();
+
+        Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
+        toast.show();
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
