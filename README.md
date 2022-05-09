@@ -11,7 +11,7 @@ dependencies {
     implementation 'com.getkeepsafe.relinker:relinker:1.4.4'
 }
 ```
-Import Ouinet in your activity and create a private variable to hold the client:
+Import Ouinet in your Android activity and create a private variable to hold the client:
 
 ```java
 import ie.equalit.ouinet.Ouinet;
@@ -59,8 +59,6 @@ CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 Those values will be loaded by Gradle during the build process and can be referenced from Java via `BuildConfig`:
 
 ```java
-
-
 public class MainActivity extends AppCompatActivity {
     ...
 
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         Config config = new Config.ConfigBuilder(this)
                 .setCacheType("bep5-http")
-                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY) // This value comes from Gradle local.properties
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY) //From local.properties
                 .build();
         
         ...
