@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         Config config = new Config.ConfigBuilder(this)
                 .setCacheType("bep5-http")
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
                 .build();
 
         ouinet = new Ouinet(this, config);
