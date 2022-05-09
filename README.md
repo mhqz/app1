@@ -48,15 +48,36 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
-## Adjust Build Configuration
+## Pass config values to Ouinet during the build process
 
-Create a `local.properties` file in the root of this project and set the
-following value before building the app:
+You can have Ouinet keys and passwords added to the
+client during the building process by Gradle.
+
+You just need to create a `local.properties` file in the root of this project
+and set the values as follows before building the app:
 ```groovy
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 ```
 
-Those values will be loaded by Gradle during the build process and can be referenced from Java via `BuildConfig`:
+Those values should be loaded by Gradle during the build process in **app/build.gradle**:
+```groovy
+...
+
+Properties localProperties = new Properties()
+localProperties.load(rootProject.file('local.properties').newDataInputStream())
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        ...
+        buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
+    }
+    ...
+}
+```
+
+and can be referenced after that from Java via `BuildConfig`:
 
 ```java
 public class MainActivity extends AppCompatActivity {
