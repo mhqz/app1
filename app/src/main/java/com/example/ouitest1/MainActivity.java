@@ -6,11 +6,13 @@ import android.widget.Toast;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import ie.equalit.ouinet.Ouinet;
 import okhttp3.*;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    private Ouinet ouinet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
