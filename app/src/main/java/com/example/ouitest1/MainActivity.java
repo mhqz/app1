@@ -11,6 +11,8 @@ import ie.equalit.ouinet.Ouinet;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
 public class MainActivity extends AppCompatActivity {
     private Ouinet ouinet;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         ouinet = new Ouinet(this, config);
         ouinet.start();
+
     }
 
     public void getURL(View view) {
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
         toast.show();
 
-        OkHttpClient client = new OkHttpClient();
+        Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
+        OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();;
         Request request = new Request.Builder()
                 .url(url)
                 .build();
