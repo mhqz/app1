@@ -6,6 +6,7 @@ import android.widget.Toast;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import ie.equalit.ouinet.Config;
 import ie.equalit.ouinet.Ouinet;
 import okhttp3.*;
 
@@ -27,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
         toast.show();
+
+        Config config = new Config.ConfigBuilder(this)
+                .setCacheType("bep5-http")
+                .build();
+
+        ouinet = new Ouinet(this, config);
+        ouinet.start();
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
