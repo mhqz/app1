@@ -47,7 +47,7 @@
             android:onClick="getURL" />
     <TextView
             android:layout_width="349dp"
-            android:layout_height="429dp" android:id="@+id/textView3"
+            android:layout_height="429dp" android:id="@+id/log_viewer"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/buttonGet"
             app:layout_constraintVertical_bias="0.301"/>

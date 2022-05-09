@@ -1,6 +1,7 @@
 package com.example.ouitest1;
 
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getURL(View view) {
         EditText editText = (EditText) findViewById(R.id.url);
+        TextView logViewer = (TextView) findViewById(R.id.log_viewer);
         String url = editText.getText().toString();
 
         Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
@@ -43,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
                     }
 
-                    toast.setText(responseBody.string());
-                    toast.show();
+                    logViewer.setText(responseHeaders.toString());
                 }
             }
         });
