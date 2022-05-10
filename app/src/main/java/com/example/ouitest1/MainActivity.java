@@ -6,16 +6,49 @@ import android.widget.Toast;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import ie.equalit.ouinet.Config;
+import ie.equalit.ouinet.Ouinet;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
+    private Ouinet ouinet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Config config = new Config.ConfigBuilder(this)
+                .setCacheType("bep5-http")
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
+                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .build();
+
+        ouinet = new Ouinet(this, config);
+        ouinet.start();
+
+        Executors.newFixedThreadPool(1).execute((Runnable) this::updateServiceState);
+    }
+
+    private void updateServiceState() {
+      TextView ouinetState = (TextView) findViewById(R.id.ouinetStatus);
+
+      while(true)
+      {
+          try {
+              Thread.sleep(1000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+
+          String state = ouinet.getState().toString();
+          runOnUiThread(() -> ouinetState.setText("State: " + state));
+      }
     }
 
     public void getURL(View view) {
@@ -26,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
         toast.show();
 
-        OkHttpClient client = new OkHttpClient();
+        Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
+        OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();;
         Request request = new Request.Builder()
                 .url(url)
                 .build();
