@@ -97,3 +97,14 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+## Send an HTTP request through Ouinet
+
+Create a Proxy object pointing to Ouinet's service `127.0.0.1:8077`:
+```java
+Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
+```
+
+Pass the Proxy object to your HTTP client (we're using `OKHTTPClient` in this example):
+```java
+OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();;
+```
