@@ -13,6 +13,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private Ouinet ouinet;
@@ -31,6 +32,23 @@ public class MainActivity extends AppCompatActivity {
         ouinet = new Ouinet(this, config);
         ouinet.start();
 
+        Executors.newFixedThreadPool(1).execute((Runnable) this::updateServiceState);
+    }
+
+    private void updateServiceState() {
+      TextView ouinetState = (TextView) findViewById(R.id.ouinetStatus);
+
+      while(true)
+      {
+          try {
+              Thread.sleep(1000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+
+          String state = ouinet.getState().toString();
+          runOnUiThread(() -> ouinetState.setText("State: " + state));
+      }
     }
 
     public void getURL(View view) {
