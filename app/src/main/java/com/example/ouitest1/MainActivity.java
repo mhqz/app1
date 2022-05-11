@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "Loading: " + url, Toast.LENGTH_SHORT);
         toast.show();
 
-        Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
-        OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();;
+        OkHttpClient client = getHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -84,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private OkHttpClient getHttpClient() {
+        Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
+        OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();
+        return client;
     }
 }
