@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 .setCacheType("bep5-http")
                 .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
                 .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .setLogLevel(Config.LogLevel.DEBUG)
                 .build();
 
         ouinet = new Ouinet(this, config);
