@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
                 .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
                 .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
                 .setLogLevel(Config.LogLevel.DEBUG)
+                //.setDisableOriginAccess(true)
+                //.setDisableProxyAccess(true)
+                //.setDisableInjectorAccess(true)
                 .build();
 
         ouinet = new Ouinet(this, config);
