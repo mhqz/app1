@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         Config config = new Config.ConfigBuilder(this)
                 .setCacheType("bep5-http")
-                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
                 .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
+                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
                 .setLogLevel(Config.LogLevel.DEBUG)
                 .build();
 
