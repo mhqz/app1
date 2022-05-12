@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
                     (X509TrustManager) trustAllCerts[0]);
 
             // Bypass hostname verification
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
+            //builder.hostnameVerifier(new HostnameVerifier() {
+            //    @Override
+            //    public boolean verify(String hostname, SSLSession session) {
+            //        return true;
+            //    }
+            //});
 
             // Proxy to ouinet service
             Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
