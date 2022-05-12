@@ -1,6 +1,6 @@
 # Ouinet's test app
 
-## Prepare your app for importing Ouinet
+## Prepare your app for using Ouinet
 
 Add Ouinet lib and Relinker to your dependencies list in **app/build.gradle**:
 
@@ -57,6 +57,10 @@ You just need to create a `local.properties` file in the root of this project
 and set the values as follows before building the app:
 ```groovy
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
+INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
+INJECTOR_TLS_CERT="-----BEGIN CERTIFICATE-----\\n\
+ABCDEFG...\
+\\n-----END CERTIFICATE-----"
 ```
 
 Those values should be loaded by Gradle during the build process in **app/build.gradle**:
@@ -72,6 +76,8 @@ android {
     defaultConfig {
         ...
         buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
+        buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
+        buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
     }
     ...
 }
@@ -90,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         Config config = new Config.ConfigBuilder(this)
                 .setCacheType("bep5-http")
                 .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY) //From local.properties
+                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
                 .build();
         
         ...
@@ -106,5 +114,14 @@ Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1
 
 Pass the Proxy object to your HTTP client (we're using `OKHTTPClient` in this example):
 ```java
-OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();;
+OkHttpClient client = new OkHttpClient.Builder().proxy(ouinetService).build();
 ```
+
+## Implement a Trust Manager
+...
+
+## Test Ouinet access mechanisms
+
+* Origin
+* Injector
+* Proxy
