@@ -73,12 +73,11 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
+                logViewer.setText(e.toString());
             }
 
             public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
                     Headers responseHeaders = response.headers();
                     for (int i = 0, size = responseHeaders.size(); i < size; i++) {
                         System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
