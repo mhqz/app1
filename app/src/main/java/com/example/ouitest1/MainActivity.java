@@ -15,6 +15,8 @@ import javax.net.ssl.*;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient client = getOuinetHttpClient();
         Request request = new Request.Builder()
                 .url(url)
+                .header("X-Ouinet-Group", getDhtGroup(url))
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -100,6 +103,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String getDhtGroup(String url) {
+        String domain = null;
+        try {
+            domain = new URI(url).getSchemeSpecificPart();
+            domain = domain.replaceAll("^//", "");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return domain;
     }
 
     private OkHttpClient getOuinetHttpClient() {
