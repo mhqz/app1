@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
                 .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
                 .setLogLevel(Config.LogLevel.DEBUG)
+                .setListenOnTcp("127.0.0.1:8888")
+                .setFrontEndEp("127.0.0.1:5555")
                 //.setDisableOriginAccess(true)
                 //.setDisableProxyAccess(true)
                 //.setDisableInjectorAccess(true)
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     (X509TrustManager) trustManagers[0]);
 
             // Proxy to ouinet service
-            Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8077));
+            Proxy ouinetService= new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
             builder.proxy(ouinetService);
             return builder.build();
         } catch (Exception e) {
